@@ -1,0 +1,12 @@
+.structeditor-container{font-family: Roboto, sans-serif;font-size:12px;cursor:default;}
+.structeditor-container ul{list-style:none;padding:0;}
+.structeditor-container ul li{padding:0 15px 0 0;}
+.structeditor-container ul li::before{content:'\23F5'}
+.structeditor-container span{display:inline;margin:0 5px;}
+.structeditor-container .string_value{color:#ff0000;}
+.structeditor-container .string_value::after,
+.structeditor-container .string_value::before{content:'"';color:#000000;}
+.structeditor-container .string_label{color:#990099;}
+.structeditor-container .numeric_value{color:#0000aa;}
+.structeditor-container .object_preview,
+.structeditor-container .array_preview{font-weight:bold;}
