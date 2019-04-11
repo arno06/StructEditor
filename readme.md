@@ -3,9 +3,7 @@ StructEditor
 
 Dependencies
 -----
-  * [Class](https://dependencies.arnaud-nicolas.fr/?need=Class)
-  * [EventDispatcher](https://dependencies.arnaud-nicolas.fr/?need=EventDispatcher)
-  * [Template](https://dependencies.arnaud-nicolas.fr/?need=Template)
+  * None
 
 Usage
 -----

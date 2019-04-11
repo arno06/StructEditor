@@ -1,12 +1,18 @@
 .structeditor-container{font-family: Roboto, sans-serif;font-size:12px;cursor:default;}
 .structeditor-container ul{list-style:none;padding:0;}
-.structeditor-container ul li{padding:0 15px 0 0;}
-.structeditor-container ul li::before{content:'\23F5'}
-.structeditor-container span{display:inline;margin:0 5px;}
-.structeditor-container .string_value{color:#ff0000;}
-.structeditor-container .string_value::after,
-.structeditor-container .string_value::before{content:'"';color:#000000;}
-.structeditor-container .string_label{color:#990099;}
-.structeditor-container .numeric_value{color:#0000aa;}
-.structeditor-container .object_preview,
-.structeditor-container .array_preview{font-weight:bold;}
+.structeditor-container ul li{padding:3px 0px;overflow:hidden;}
+.structeditor-container ul li ul{padding-left:15px;}
+.structeditor-container ul li::before{pointer-events: all;content:' ';display:inline-block;width:15px;height:15px;line-height:15px;text-align: center;vertical-align: middle;}
+.structeditor-container ul li.folded::before,.structeditor-container ul li.unfolded::before{content:'\23F5';}
+.structeditor-container ul li.unfolded::before{transform:rotate(90deg);}
+.structeditor-container ul li.unfolded>span.preview{opacity:0.4;}
+.structeditor-container ul li.folded>ul{height:0;}
+.structeditor-container span{display:inline;padding:2px 5px;vertical-align: middle;}
+.structeditor-container span[contenteditable="true"]:hover{outline: solid 1px #ddd;}
+.structeditor-container span[contenteditable="true"]:focus{outline: solid 1px #aaa;}
+.structeditor-container .string.value{color:#aa0000;}
+.structeditor-container .string.value::after,
+.structeditor-container .string.value::before{content:'"';color:#000000;}
+.structeditor-container .label{color:#990099;padding-right:0;}
+.structeditor-container .number.value{color:#0000aa;}
+.structeditor-container .preview{font-weight:bold;}
