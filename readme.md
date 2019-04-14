@@ -12,6 +12,6 @@ Usage
 ```
 
 ```js
-var valueJSON = StructEditor.getInstance('input[data-role="StructEditor"]').getJSON();
-console.log(valueJSON);
+var element = document.querySelector('input[data-role="StructEditor"]');
+console.log(element.getAttribute("value"));
 ```
