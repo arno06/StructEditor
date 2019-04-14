@@ -5,6 +5,11 @@ var StructEditor = (function(){
     class StructEditor{
         constructor(pElement, pOptions){
             this.type = "json";
+            this.editable = {
+                values:true,
+                props:true,
+                struct:false
+            };
             for(var i in pOptions){
                 if(!pOptions.hasOwnProperty(i)||!this.hasOwnProperty(i)){
                     continue;
@@ -21,8 +26,8 @@ var StructEditor = (function(){
                 this.element.parentNode.appendChild(this.container);
             }
 
-            let v = JSON.parse(this.element.value)||{};
-            this.container.innerHTML += render(v, true);
+            this.value = JSON.parse(this.element.value)||{};
+            this.container.innerHTML += render(this.value, this.editable, "");
             this.container.querySelectorAll("li.folded>span.label,li.folded>span.preview").forEach(function(pEl){
                 pEl.addEventListener('click', StructEditor.toggleStructHandler, false);
             });
@@ -39,19 +44,45 @@ var StructEditor = (function(){
         }
 
         contentEditableBlueHandler(e){
-            console.log(e.currentTarget.innerHTML);
+            let span = e.currentTarget;
+            let isValue = span.classList.contains('value');
+            let value = span.innerHTML;
+            let prop = span.getAttribute("data-prop");
+            let props = prop.split(".");
+            let data = this.value;
+            while(props.length){
+                let i = props.shift();
+                if(!data.hasOwnProperty(i)) {
+                    console.warn("StructEditor.contentEditableBlueHandler -  no prop "+i);
+                    return;
+                }
+                if(!props.length){
+                    if(isValue){
+                        data[i] = value;
+                    }else{
+                        data[value] = data[i];
+                        delete data[i];
+                    }
+                }else{
+                    data = data[i];
+                }
+            }
+
+            this.element.setAttribute("value", JSON.stringify(this.value));
         }
     }
 
     function init(){
         document.querySelectorAll('input[data-role="StructEditor"]').forEach(function(pEl){
-            instances[pEl] = new StructEditor(pEl);
+            instances[pEl] = new StructEditor(pEl, JSON.parse(pEl.getAttribute("data-options")||'{}'));
         });
     }
 
     window.addEventListener('DOMContentLoaded', init, false);
 
-    function render(pValue, pContentEditable, pDisplayPreview){
+    function render(pValue, pEditable, pProp){
+        let editable;
+        let prop = pProp;
         if (typeof pValue === "object"){
             let type = typeof pValue;
             let value = "{...}";
@@ -65,13 +96,15 @@ var StructEditor = (function(){
                     continue;
                 }
                 let t = typeof i;
-                props += "<li"+(typeof pValue[i] === "object"?" class='folded'":"")+"><span class='"+t+" label'>"+i+"</span>:"+render(pValue[i], pContentEditable, true)+"</li>";
+                editable = pEditable.props?' contenteditable="true"':"";
+                prop = pProp !== "" ? pProp+"."+i:i;
+                props += "<li"+(typeof pValue[i] === "object"?" class='folded'":"")+"><span data-prop='"+prop+"' class='"+t+" label'"+editable+">"+i+"</span>:"+render(pValue[i], pEditable, prop)+"</li>";
             }
-            let preview = pDisplayPreview?"<span class='"+type+" preview'>"+value+"</span>":"";
+            let preview = pProp!=""?"<span class='"+type+" preview'>"+value+"</span>":"";
             return preview+"<ul>"+props+"</ul>";
         }
-        let editable = pContentEditable?' contenteditable="true"':"";
-        return "<span class='"+(typeof pValue)+" value'"+editable+">"+pValue+"</span>";
+        editable = pEditable.values?' contenteditable="true"':"";
+        return "<span data-prop='"+prop+"' class='"+(typeof pValue)+" value'"+editable+">"+pValue+"</span>";
     }
 
     return {

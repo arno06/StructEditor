@@ -5,6 +5,9 @@
 <link type="text/css" rel="stylesheet" href="../src/StructEditor.css"/>
 <script src="../src/StructEditor.js"></script>
 <body>
-<input type="text" value='{"some":"json", "foo":123456789, "some_object":{"id":1, "name":"test", "arr":[1,2,3,4]}, "some_array":[1,2,"bouboup",{"folded":"object"}, ["a", "b", "c"]]}' data-role="StructEditor"/>
+<form action="" onsubmit="console.log(document.querySelector('#myInput').value);return false;">
+    <input id="myInput" type="text" value='{"some":"json", "foo":123456789, "some_object":{"id":1, "name":"test", "arr":[1,2,3,4]}, "some_array":[1,2,"bouboup",{"folded":"object"}, ["a", "b", "c"]]}' data-role="StructEditor" data-options='{"editable":{"values":true, "props":false, "struct":false}}'/>
+    <input type="submit" value="Check Value"/>
+</form>
 </body>
 </html>

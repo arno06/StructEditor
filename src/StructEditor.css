@@ -1,4 +1,4 @@
-.structeditor-container{font-family: Roboto, sans-serif;font-size:12px;cursor:default;}
+.structeditor-container{font-family: Roboto, sans-serif;font-size:12px;cursor:default;background:#fafafa;max-height:400px;width:400px;resize:both;border:solid 1px #eeeeee;overflow:auto;}
 .structeditor-container ul{list-style:none;padding:0;}
 .structeditor-container ul li{padding:3px 0px;overflow:hidden;}
 .structeditor-container ul li ul{padding-left:15px;}
@@ -8,8 +8,9 @@
 .structeditor-container ul li.unfolded>span.preview{opacity:0.4;}
 .structeditor-container ul li.folded>ul{height:0;}
 .structeditor-container span{display:inline;padding:2px 5px;vertical-align: middle;}
-.structeditor-container span[contenteditable="true"]:hover{outline: solid 1px #ddd;}
-.structeditor-container span[contenteditable="true"]:focus{outline: solid 1px #aaa;}
+.structeditor-container span[contenteditable="true"]{cursor:text;}
+.structeditor-container span[contenteditable="true"]:hover{outline: solid 1px #ddd;background:#fff;}
+.structeditor-container span[contenteditable="true"]:focus{outline: solid 1px #aaa;background:#fff;}
 .structeditor-container .string.value{color:#aa0000;}
 .structeditor-container .string.value::after,
 .structeditor-container .string.value::before{content:'"';color:#000000;}
