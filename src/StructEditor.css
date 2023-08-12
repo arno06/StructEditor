@@ -1,6 +1,6 @@
 .structeditor-container{font-family: Roboto, sans-serif;font-size:12px;cursor:default;background:#fafafa;max-height:400px;width:400px;resize:both;border:solid 1px #eeeeee;overflow:auto;}
 .structeditor-container ul{list-style:none;padding:0;}
-.structeditor-container ul li{padding:3px 0px;overflow:hidden;}
+.structeditor-container ul li{padding:3px 0;overflow:hidden;}
 .structeditor-container ul li ul{padding-left:15px;}
 .structeditor-container ul li::before{pointer-events: all;content:' ';display:inline-block;width:15px;height:15px;line-height:15px;text-align: center;vertical-align: middle;}
 .structeditor-container ul li.folded::before,.structeditor-container ul li.unfolded::before{content:'\23F5';}

@@ -100,16 +100,20 @@ var StructEditor = (function(){
                 prop = pProp !== "" ? pProp+"."+i:i;
                 props += "<li"+(typeof pValue[i] === "object"?" class='folded'":"")+"><span data-prop='"+prop+"' class='"+t+" label'"+editable+">"+i+"</span>:"+render(pValue[i], pEditable, prop)+"</li>";
             }
-            let preview = pProp!=""?"<span class='"+type+" preview'>"+value+"</span>":"";
+            let preview = pProp!==""?"<span class='"+type+" preview'>"+value+"</span>":"";
             return preview+"<ul>"+props+"</ul>";
         }
         editable = pEditable.values?' contenteditable="true"':"";
-        return "<span data-prop='"+prop+"' class='"+(typeof pValue)+" value'"+editable+">"+pValue+"</span>";
+        return "<span data-prop='"+prop+"' class='"+(typeof pValue)+" value'"+editable+">"+pValue.replaceAll("<", "&lt;").replaceAll(">", "&gt;")+"</span>";
     }
 
     return {
         getInstance:function(pSelector){
-            return instances[document.querySelector(pSelector)];
+            let target = document.querySelector(pSelector);
+            if(!instances[target]){
+                instances[target] = new StructEditor(target, JSON.parse(target.getAttribute("data-options")||'{}'));
+            }
+            return instances[target];
         }
     };
 
